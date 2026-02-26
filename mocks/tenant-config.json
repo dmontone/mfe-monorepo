@@ -1,0 +1,44 @@
+{
+  "tenant_id": "dev-tenant-001",
+  "theme": {
+    "colors": {
+      "primary": "#3b82f6",
+      "secondary": "#64748b",
+      "accent": "#f59e0b",
+      "background": "#ffffff",
+      "surface": "#f8fafc",
+      "text": "#1e293b",
+      "textSecondary": "#64748b"
+    },
+    "fonts": {
+      "primary": "Inter, sans-serif",
+      "secondary": "Roboto, sans-serif"
+    },
+    "logo": {
+      "url": "/logo.png",
+      "alt": "Company Logo"
+    }
+  },
+  "i18n": {
+    "default_locale": "pt-BR",
+    "supported_locales": ["pt-BR", "en-US"],
+    "custom_strings": {
+      "welcome": "Bem-vindo à plataforma",
+      "dashboard": "Painel de Controle",
+      "payments": "Pagamentos",
+      "inventory": "Estoque",
+      "settings": "Configurações"
+    }
+  },
+  "features": {
+    "payments_enabled": true,
+    "inventory_enabled": true,
+    "analytics_enabled": false,
+    "beta_features": false
+  },
+  "api_endpoints": {
+    "config": "http://localhost:3002/api/config",
+    "payments": "http://localhost:3002/api/payments",
+    "inventory": "http://localhost:3003/api/inventory"
+  }
+}

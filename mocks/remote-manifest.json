@@ -1,0 +1,23 @@
+{
+  "remotes": {
+    "payments": {
+      "url": "http://localhost:3002",
+      "exposes": ["./PaymentModule", "./PaymentForm", "./PaymentHistory"]
+    },
+    "inventory": {
+      "url": "http://localhost:3003", 
+      "exposes": ["./InventoryModule", "./ProductList", "./StockManager"]
+    },
+    "settings": {
+      "url": "http://localhost:3004",
+      "exposes": ["./SettingsModule", "./UserProfile", "./TenantConfig"]
+    }
+  },
+  "shared": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/ui": "*"
+  },
+  "version": "1.0.0",
+  "timestamp": "2026-02-26T18:00:00Z"
+}

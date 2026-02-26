@@ -28,6 +28,22 @@ flowchart LR
     SharedDS -. Consome .-> CSSInject
 ```
 
+Estrutura do projeto:
+
+```
+.
+├── apps/
+│   ├── shell/              # Host Principal (Next.js Pages Router)
+│   ├── {{REMOTE}}/         # Microfrontend de Pagamentos (Remote App)
+├── packages/
+│   ├── ui/                 # Design System (Tailwind + Storybook + Axe-core)
+│   ├── eslint-config/      # Configurações de Lint compartilhadas
+│   ├── typescript-config/  # Configurações de TS base
+│   └── utils/              # Helpers, Adapters e lógica de i18n global
+├── docker-compose.yml      # Orquestração de todos os serviços locais
+└── turbo.json              # Configuração de pipeline e cache do Turborepo
+```
+
 ## Decisões Técnicas
 
 ### Orquestração SSR (Next.js and Module Federation)
@@ -50,9 +66,9 @@ A internacionalização pode também suportar múltiplos tenants e personalizaç
 
 O gerenciamento do monorepo é feito com Turborepo, isso permite que múltiplos times trabalhem em aplicações isoladas (`apps/*`) e bibliotecas compartilhadas (`packages/*`) com pipelines independentes, otimizando o tempo de build e a produtividade.
 
-## Estratégia de Colaboração
+Para evitar múltiplas instâncias de dependências no navegador, o Module Federation está configurado com `singleton: true`. Isso garante que, mesmo que diferentes remotos solicitem versões levemente distintas, o shell resolva a instância única para otimizar memória e performance.
 
-Para viabilizar que múltiplos times trabalhem em funcionalidades com autonomia:
+## Estratégia de Colaboração
 
 O shell utiliza um mecanismo de Service Discovery em tempo de execução. Em vez de URLs estáticas, ele consome um manifesto de remotos. Isso permite que um time realize o deploy de uma nova versão de um MFE e o shell a descubra automaticamente, sem necessidade de um novo build do Host. Caso o manifesto remoto esteja offline ou corrompido o shell utiliza um manifesto de segurança "hardcoded" com as versões estáveis conhecidas (LTS) dos microfrontends mínimos.
 
