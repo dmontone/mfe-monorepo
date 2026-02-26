@@ -3,7 +3,7 @@
 Ecossistema de microfrontends whitelabel escalável, com _Server Side Rendering_ e _Server Side Props_ baseada em cookie de multi tenância. Microfrontends baseados em Module Federation orquestrados em Next.js. A estratégia de White Label e a localização são resolvidas integralmente no SSR via cookie de sessão, garantindo que dados sejam injetados antes da renderização, otimizada para Core Web Vitals.
 
 ```mermaid
-flowchart TB
+flowchart LR
  subgraph SSR_Process["Server Side"]
         GetProps["getServerSideProps"]
         Shell["Next.js Shell Host"]
@@ -28,9 +28,9 @@ flowchart TB
     SharedDS -. Consome .-> CSSInject
 ```
 
-## 2. Decisões Técnicas e Trade-offs
+## Decisões Técnicas
 
-### 2.1 Orquestração SSR (Next.js & Module Federation)
+### Orquestração SSR (Next.js and Module Federation)
 
 A aplicação shell roda um Next.js que orquestra as rotas via Pages Router em vez do App Router, que apesar de mais moderno e comum no mercado, ainda não é completa e oficialmente suportado para Module Federation com SSR.
 
