@@ -1,59 +1,55 @@
-# Operação do Monorepo: Guia de Configurações e Ferramentas
+# Monorepo: Turborepo
 
-Este documento descreve como funciona o monorepo e as vantagens de uso do Turborepo.
+O monorepo não é um **enbaler** para o ecossistema whitelabel. Ele garantindo a consistência para whitelabel.
 
-## Turborepo
+### **Performance de Build**
+- **Cache Inteligente:** Cache granular por task e por conteúdo, evitando builds desnecessários
+- **Execução paralela:** tasks independentes otimizam tempo de CI/CD
+- **Builds incrementais:** apenas pacotes afetados por mudanças são reconstruídos, caso necessário
 
-A gestão das dependências e o orquestramento de tarefas são feitos via Turborepo pela capacidade de resolver o grafo de dependências entre `apps` e `packages`.
+### **Orquestração Nativa**
+- **Grafo de dependências:** Detecção automática de dependências entre pacotes para otimização
+- **Pipeline Declarativo:** Configuração simples de fluxos de build, test e deploy
 
-### Vantagens de produtividade:
-* Reaproveitamento de artefatos de build e resultados de testes para evitar execuções repetidas.
-* Execução paralela de tarefas (`lint`, `build`, `test`)
-* Capacidade filtrar apps para executar comandos com pouco esforço.
+### **Integração com Ecossistema MFE**
+- **SSR:** Cache de builds Next.js com preservação de estado de servidor
+- **Module Federation:** Gerenciamento eficiente de shared dependencies entre remotos
+- **Docker:** Pipeline otimizado para builds multi-stage de containers
 
-## Estrutura de Arquivos
+### **Experiência do Desenvolvedor**
+- **Hot Reload:** Cache de desenvolvimento para feedback instantâneo
+- **Logging estruturado:** Output organizado por app/package
+- **Remote Caching:** Compartilhamento opcional de cache entre desenvolvedores/máquinas
 
-```
-challenge/
-├── apps/
-│   ├── shell/                  # Host Principal (Next.js Pages Router)
-│   └── {{REMOTE}}/              # Microfrontend (Remote App)
-├── packages/
-│   ├── ui/                     # Design System (Tailwind + Storybook + Axe-core)
-│   ├── eslint-config/          # Configuração ESLint global
-│   ├── typescript-config/      # Configuração TypeScript global
-│   └── utils/                  # Helpers, Adapters e lógica de i18n global
-├── docs/                       # Documentação
-└── turbo.json                  # Configuração do Turborepo
-```
+### **Turborepo vs Alternativas**
+- **vs Lerna/Nx:** Mais simples e focado em performance
+- **vs pnpm Workspaces:** Orquestração superior com cache inteligente e pipeline declarativo
 
-## Comandos úteis (CLI)
+### **Consistência e Governança**
+- **Configurações Unificadas:** ESLint, TypeScript e outras ferramentas padronizadas via pacotes compartilhados
+- **Versionamento Simplificado:** Controle centralizado de dependências e compatibilidade
 
-| Comando | Descrição |
-| :--- | :--- |
-| `npx turbo build` | Builda todas apps e packages do monorepo. |
-| `npx turbo dev --filter=shell` | Inicia apenas o shell em modo desenvolvimento. |
-| `npx turbo build --filter=payments...` | Builda o app de pagamentos e todas as suas dependências (ui, utils, etc). |
-| `npx turbo lint --filter=[origin/main]` | Roda o lint apenas nos arquivos modificados desde a branch principal. |
-| `npx turbo check-types` | Valida a tipagem estática de todo o projeto em paralelo. |
+### **Desenvolvimento Ágil**
+- **Code Sharing:** tipos, utilitários e outros artefatos disponíveis globalmente via `@repo/*`
+- **Refatoração Segura:** Alterações em múltiplos pacotes simultaneamente com garantia de compatibilidade
 
-## 3. Variáveis de Ambiente e Cache
+### **Multi-tenância Escalável**
+- **Configuração Central:** Temas e configurações whitelabel gerenciadas no nível do monorepo
+- **Deploy Coordenado:** Sincronização opcional de deploys
+- **Isolamento Mantido:** Cada MFE mantém sua independência enquanto compartilha infraestrutura
 
-Para garantir que o cache do Turborepo seja confiável, o arquivo `turbo.json` está configurado para invalidar artefatos caso haja mudanças em variáveis críticas de ambiente, evitando que um build gerado para um ambiente (ex: Homolog) seja reaproveitado indevidamente em outro (ex: Produção).
+### **Ecossistema de Desenvolvimento**
+- **Turborepo:** Build cache inteligente e pipeline otimizado
+- **Docker Compose:** Ambiente completo orquestrado localmente
+- **Design System:** Componentes acessíveis com Storybook
+- **Quality Gates:** Linting e TypeScript padronizados
 
-**Variáveis rastreadas:**
-* `REMOTE_MANIFEST_URL`: URL do Service Discovery de Microfrontends.
-* `NEXT_PUBLIC_*`: Qualquer variável exposta ao navegador.
-* `NODE_ENV`: Contexto de execução (development/production).
+### **Manutenibilidade**
+- **Single Source of Truth:** Tipos e contratos centralizados
+- **Atomic Commits:** Alterações relacionadas em um único commit
+- **Rollback Seguro:** Reversão coordenada de múltiplos serviços
 
-## 4. Governança e Padronização
-O monorepo centraliza as regras de negócio e estilo para garantir consistência entre os times.
-
-* **TypeScript:** Um arquivo global é disponibilizado em `packages/typescript-config` podendo ou não ser usado por apps externos via `extends`.
-* **Lint:** Um arquivo global é disponibilizado em `packages/eslint-config` podendo ou não ser usado por apps externos via `extends`.
-* **Design System:** Conteúdo em `packages/ui` servindo como codebase, porém o deploy deve ser feito à parte em um registro privado respeitando semantic versioning.
-* **Utils:** Helpers compartilhados em `packages/utils` para adapters e lógica de i18n global.
-* **Prefixos de Estilo:** Cada aplicação em `apps/` deve obrigatoriamente definir um `prefix` único no seu `tailwind.config.js` para garantir o isolamento de escopo CSS.
-
-## 5. Service Discovery Local
-Para o desenvolvimento local das funcionalidades federadas, o shell consome o manifesto de remotos definido via variável de ambiente. Isso permite que o desenvolvedor aponte o shell para remotos rodando localmente ou em ambientes de desenvolvimento remoto conforme a necessidade.
+### **Escalabilidade**
+- **Horizontal:** Novos MFEs sem impacto na arquitetura existente
+- **Vertical:** Escalonamento independente de cada microfrontend
+- **Organizacional:** Equipes autônomas com governança compartilhada
