@@ -3,10 +3,10 @@ const { NextFederationPlugin } = require('@module-federation/nextjs-mf')
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  webpack(config, options) {
+  webpack(config) {
     config.plugins.push(
       new NextFederationPlugin({
-        name: 'remote',
+        name: 'mfe-remote',
         filename: 'static/chunks/remoteEntry.js',
         remotes: {},
         exposes: {

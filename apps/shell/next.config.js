@@ -7,7 +7,7 @@ module.exports = {
         name: 'shell',
         filename: 'static/chunks/remoteEntry.js',
         remotes: {
-          remote: `remote@http://localhost:3001/_next/static/${options.isServer ? 'ssr' : 'chunks'}/remoteEntry.js`,
+          'mfe-remote': `mfe-remote@http://localhost:3001/_next/static/${options.isServer ? 'ssr' : 'chunks'}/remoteEntry.js`,
         },
         shared: {
           react: { singleton: true, requiredVersion: false, eager: true },

@@ -40,7 +40,7 @@ flowchart LR
 .
 ├── apps/
 │   ├── shell/              # Host Principal
-│   ├── {{REMOTE}}/         # Microfrontends Remotos
+│   ├── mfe-remote/         # Microfrontends Remotos (prefixo mfe-*)
 ├── packages/
 │   ├── ui/                 # Design System
 │   ├── eslint-config/      # Configurações de Lint
@@ -54,6 +54,13 @@ flowchart LR
 
 Detalhamento das decisões técnicas:
 - [Monorepo/Turborepo](./docs/MONOREPO.md)
+- [Federation/Module Federation](./docs/FEDERATION.md)
+
+### Orquestração de Desenvolvimento com Turborepo
+- **Execução Paralela:** Apps com prefixo `mfe-*` rodam em paralelo via configuração `dev#apps/mfe-*`
+- **Dependências Automáticas:** Shell aguarda conclusão de todos os MFEs através de `dependsOn: ["^apps/mfe-.*#dev"]`
+- **Escalabilidade:** Novos apps MFE são automaticamente incluídos no pipeline sem configuração manual
+- **TypeScript:** Declarações de módulo `mfe-{remote-name}/*` para tipagem segura de imports dinâmicos
 
 ### Estilização whitelabel
 A customização é agnóstica ao build via SSR, utilizando Tailwind + Variáveis CSS.

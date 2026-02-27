@@ -1,4 +1,6 @@
-declare module 'remote/Home' {
-  const Home: React.ComponentType
-  export default Home
+type MFE = React.FC
+
+declare module 'mfe-remote/*' {
+  const Component: MFE
+  export default Component
 }

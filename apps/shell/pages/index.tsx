@@ -1,10 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 
-const RemoteHome = dynamic(() => import('remote/Home'), {
-  ssr: true,
-  loading: () => <div>Carregando...</div>,
-})
+const RemoteHome = dynamic(() => import('mfe-remote/Home'), { ssr: true })
 
 export default function HomePage() {
   return (
