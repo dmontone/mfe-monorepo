@@ -41,6 +41,11 @@ export const nextJsConfig = [
     rules: {
       ...pluginNext.configs.recommended.rules,
       ...pluginNext.configs["core-web-vitals"].rules,
+      "semi": ["error", "never"],
+      "arrow-body-style": ["error", "as-needed"],
+      "prefer-arrow-callback": "error",
+      "arrow-spacing": "error",
+      "no-confusing-arrow": "error"
     },
   },
   {
