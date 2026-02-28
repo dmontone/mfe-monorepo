@@ -68,10 +68,6 @@ A customização é agnóstica ao build via SSR, utilizando Tailwind + Variávei
 - **Isolamento:** Uso obrigatório de `prefix` no Tailwind de cada MFE (ex: `mfe-pay-`) para evitar colisões de estilo.
 - **Performance:** Configurações de tenant cacheadas no servidor para otimizar o Time to First Byte (TTFB).
 
-### Orquestração e Service Discovery
-- **Manifesto Dinâmico:** O shell consome a localização dos remotos via `REMOTE_MANIFEST_URL`.
-- **Resiliência:** Fallback automático para um manifesto *hardcoded* (LTS) caso o serviço de descoberta esteja indisponível.
-
 ### Comunicação e Desacoplamento (Event Bus Tipado)
 - **Event Bus:** Interação entre MFEs via *Custom Events* nativos do DOM, garantindo que o Shell atue como um orquestrador neutro.
 - **Type Safety (@repo/utils):** Implementação de um helper centralizado que tipa os eventos globais. Isso garante que um MFE de Pagamentos não emita eventos desconhecidos e que o Shell ou outros remotos assinem apenas contratos válidos.
@@ -84,3 +80,10 @@ A customização é agnóstica ao build via SSR, utilizando Tailwind + Variávei
 
 ### Infraestrutura
 Cada aplicação possui seu próprio `Dockerfile` multi-stage. O `docker-compose.yml` local orquestra o ecossistema completo (Shell, Remotos e API Mock), garantindo paridade entre os ambientes de desenvolvimento e produção.
+
+### CI/CD Pipeline
+- **GitHub Actions:** Pipeline manual com suporte a build seletivo por projeto ou completo para todo o monorepo.
+- **Node.js v22:** Ambiente de build padronizado com cache de dependências npm para otimização.
+- **Turborepo:** Execução de builds com controle de concorrência (`--concurrency=1`) para garantir estabilidade.
+- **Build Seletivo:** Opção de build individual por projeto (`shell`, `mfe-remote`) ou build completo (`all`).
+- **Variáveis de Ambiente:** Configuração otimizada com `NEXT_PRIVATE_LOCAL_WEBPACK` e `NODE_OPTIONS` para gerenciamento de memória.
