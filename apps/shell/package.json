@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@repo/typescript-config": "^0.0.0",
+    "@repo/tailwind-config": "^0.0.0",
     "cross-env": "^10.1.0",
     "next": "^15.0.0",
     "react": "^19.0.0",

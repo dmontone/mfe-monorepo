@@ -40,9 +40,10 @@ flowchart LR
 .
 ├── apps/
 │   ├── shell/              # Host Principal
-│   ├── mfe-remote/         # Microfrontends Remotos (prefixo mfe-*)
+│   ├── mfe-remote/         # Microfrontends Remotos
 ├── packages/
 │   ├── ui/                 # Design System
+│   ├── tailwind-config/    # Configuração compartilhada Tailwind + CSS Variables
 │   ├── eslint-config/      # Configurações de Lint
 │   ├── typescript-config/  # Configurações de TS base
 │   └── utils/              # Lógicas globais
@@ -55,6 +56,7 @@ flowchart LR
 Detalhamento das decisões técnicas:
 - [Monorepo/Turborepo](./docs/MONOREPO.md)
 - [Federation/Module Federation](./docs/FEDERATION.md)
+- [Styles/Tailwind](./docs/STYLES.md)
 
 ### Orquestração de Desenvolvimento com Turborepo
 - **Execução Paralela:** Apps com prefixo `mfe-*` rodam em paralelo via configuração `dev#apps/mfe-*`
@@ -62,11 +64,13 @@ Detalhamento das decisões técnicas:
 - **Escalabilidade:** Novos apps MFE são automaticamente incluídos no pipeline sem configuração manual
 - **TypeScript:** Declarações de módulo `mfe-{remote-name}/*` para tipagem segura de imports dinâmicos
 
-### Estilização whitelabel
-A customização é agnóstica ao build via SSR, utilizando Tailwind + Variáveis CSS.
-- **Injeção Dinâmica:** O shell captura o `tenant_id` via cookie e injeta variáveis CSS (ex: `--color-primary`) no `<head>`.
-- **Isolamento:** Uso obrigatório de `prefix` no Tailwind de cada MFE (ex: `mfe-pay-`) para evitar colisões de estilo.
-- **Performance:** Configurações de tenant cacheadas no servidor para otimizar o Time to First Byte (TTFB).
+### Estilização whitelabel com Tailwind CSS
+A customização é agnóstica ao build via SSR, utilizando Tailwind CSS + Variáveis CSS compartilhadas.
+
+- **Pacote Compartilhado:** `@repo/tailwind-config` centraliza configuração Tailwind, CSS variables e PostCSS
+- **Classes Semânticas:** `bg-primary`, `text-primary-foreground`, `bg-secondary` com contraste WCAG garantido
+- **Design System:** Paleta slate (cinza azulado) com suporte a light/dark mode
+- **Performance:** Configurações de tenant cacheadas no servidor
 
 ### Comunicação e Desacoplamento (Event Bus Tipado)
 - **Event Bus:** Interação entre MFEs via *Custom Events* nativos do DOM, garantindo que o Shell atue como um orquestrador neutro.
