@@ -33,6 +33,8 @@ jobs:
         run: npm ci
 
       - name: Run Turbo
+        env:
+          NEXT_PRIVATE_LOCAL_WEBPACK: "true"
         run: |
           # Verifica se um projeto específico foi solicitado
           if [ "${{ github.event.inputs.project }}" != "" ]; then
