@@ -1,14 +1,17 @@
 name: Manual Pipeline (Turborepo)
 
 on:
-  # Ativa apenas o gatilho manual
   workflow_dispatch:
     inputs:
       project:
-        description: 'Projeto para rodar (ex: shell, mfe-remote ou deixe vazio para TUDO)'
-        required: false
-        default: ''
-        type: string
+        description: 'Selecione o projeto para build'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - shell
+          - mfe-remote
 
 jobs:
   build:
@@ -19,8 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # fetch-depth: 0 garante que o Turbo consiga comparar 
-          # histórico se você usar filtros de diff
           fetch-depth: 0
 
       - name: Setup Node.js
@@ -35,12 +36,12 @@ jobs:
       - name: Run Turbo
         env:
           NEXT_PRIVATE_LOCAL_WEBPACK: "true"
+          NODE_OPTIONS: "--max-old-space-size=4096"
         run: |
-          # Verifica se um projeto específico foi solicitado
-          if [ "${{ github.event.inputs.project }}" != "" ]; then
-            echo "Executando build para o projeto: ${{ github.event.inputs.project }}"
-            npx turbo run build --filter=${{ github.event.inputs.project }}
+          if [ "${{ github.event.inputs.project }}" = "all" ]; then
+            echo "Executando build para TODOS os projetos"
+            npx turbo run build --concurrency=1
           else
-            echo "Executando build para TODOS os projetos no monorepo"
-            npx turbo run build
+            echo "Executando build para o projeto: ${{ github.event.inputs.project }}"
+            npx turbo run build --filter=${{ github.event.inputs.project }} --concurrency=1
           fi
