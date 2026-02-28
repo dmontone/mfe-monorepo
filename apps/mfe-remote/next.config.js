@@ -10,18 +10,18 @@ const nextConfig = {
         filename: 'static/chunks/remoteEntry.js',
         remotes: {},
         exposes: {
-          './Home': './components/Home'
+          './Home': './components/Home',
         },
         shared: {
           react: {
             singleton: true,
             requiredVersion: false,
-            eager: true,
+            eager: false, // Remotos geralmente não precisam de eager: true
           },
           'react-dom': {
             singleton: true,
             requiredVersion: false,
-            eager: true,
+            eager: false,
           },
         },
         extraOptions: {
