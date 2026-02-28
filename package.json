@@ -3,8 +3,10 @@
   "private": true,
   "scripts": {
     "reset": "npx rimraf node_modules",
+    "clean": "npx rimraf .next .turbo node_modules/.cache apps/*/.next apps/*/.turbo apps/*/node_modules/.cache",
+    "dev": "npm run clean && turbo run dev",
+    "dev:clean": "npm run clean && turbo run dev",
     "build": "turbo run build",
-    "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
