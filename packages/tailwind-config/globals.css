@@ -2,53 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables para Whitelabel - injetadas via SSR */
 :root {
-  --color-primary: 248 250 252; /* slate-50 - claro */
-  --color-primary-foreground: 30 41 59; /* slate-800 - escuro */
-  --color-secondary: 248 250 252; /* slate-50 - claro */
-  --color-secondary-foreground: 71 85 105; /* slate-600 - médio */
-  --color-tertiary: 71 85 105; /* slate-600 - médio */
-  --color-tertiary-foreground: 248 250 252; /* slate-50 - claro */
-  --color-background: 248 250 252; /* slate-50 - fundo claro */
-  --color-foreground: 30 41 59; /* slate-800 - texto escuro */
-  --color-muted: 241 245 249; /* slate-100 - suave */
-  --color-muted-foreground: 100 116 139; /* slate-500 - secundário */
-  --color-border: 226 232 240; /* slate-200 - bordas */
-  --color-input: 255 255 255; /* white */
-  --color-input-foreground: 30 41 59; /* slate-800 */
-  --color-ring: 30 41 59; /* slate-800 */
+  --color-primary: #f8fafc; /* slate-50 - claro */
+  --color-primary-foreground: #1e293b; /* slate-800 - escuro */
+  --color-secondary: #f8fafc; /* slate-50 - claro */
+  --color-secondary-foreground: #475569; /* slate-600 - médio */
+  --color-tertiary: #475569; /* slate-600 - médio */
+  --color-tertiary-foreground: #f8fafc; /* slate-50 - claro */
+  --color-background: #f8fafc; /* slate-50 - fundo claro */
+  --color-foreground: #1e293b; /* slate-800 - texto escuro */
+  --color-muted: #f1f5f9; /* slate-100 - suave */
+  --color-muted-foreground: #64748b; /* slate-500 - secundário */
+  --color-border: #e2e8f0; /* slate-200 - bordas */
+  --color-input: #ffffff; /* white */
+  --color-input-foreground: #1e293b; /* slate-800 */
+  --color-ring: #1e293b; /* slate-800 */
   --font-sans: 'Inter', system-ui, sans-serif;
 }
 
-/* Dark mode defaults */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: 30 41 59; /* slate-800 - escuro */
-    --color-primary-foreground: 248 250 252; /* slate-50 - claro */
-    --color-secondary: 30 41 59; /* slate-800 - escuro */
-    --color-secondary-foreground: 148 163 184; /* slate-400 - médio claro */
-    --color-tertiary: 148 163 184; /* slate-400 - médio claro */
-    --color-tertiary-foreground: 30 41 59; /* slate-800 - escuro */
-    --color-background: 15 23 42; /* slate-900 - fundo escuro */
-    --color-foreground: 248 250 252; /* slate-50 - texto claro */
-    --color-muted: 30 41 59; /* slate-800 - suave escuro */
-    --color-muted-foreground: 148 163 184; /* slate-400 - secundário claro */
-    --color-border: 51 65 85; /* slate-700 - bordas escuras */
-    --color-input: 30 41 59; /* slate-800 - fundo input escuro */
-    --color-input-foreground: 248 250 252; /* slate-50 - texto input claro */
-    --color-ring: 248 250 252; /* slate-50 - focus ring claro */
+    --color-primary: #1e293b; /* slate-800 - escuro */
+    --color-primary-foreground: #f8fafc; /* slate-50 - claro */
+    --color-secondary: #1e293b; /* slate-800 - escuro */
+    --color-secondary-foreground: #94a3b8; /* slate-400 - médio claro */
+    --color-tertiary: #94a3b8; /* slate-400 - médio claro */
+    --color-tertiary-foreground: #1e293b; /* slate-800 - escuro */
+    --color-background: #0f172a; /* slate-900 - fundo escuro */
+    --color-foreground: #f8fafc; /* slate-50 - texto claro */
+    --color-muted: #1e293b; /* slate-800 - suave escuro */
+    --color-muted-foreground: #94a3b8; /* slate-400 - secundário claro */
+    --color-border: #334155; /* slate-700 - bordas escuras */
+    --color-input: #1e293b; /* slate-800 - fundo input escuro */
+    --color-input-foreground: #f8fafc; /* slate-50 - texto input claro */
+    --color-ring: #f8fafc; /* slate-50 - focus ring claro */
   }
 }
 
-/* Base styles com CSS Variables */
 @layer base {
   * {
-    border-color: rgb(var(--color-border));
+    border-color: var(--color-border);
   }
+
   body {
-    background-color: rgb(var(--color-background));
-    color: rgb(var(--color-foreground));
+    background-color: var(--color-background);
+    color: var(--color-foreground);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

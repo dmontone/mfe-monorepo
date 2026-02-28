@@ -25,21 +25,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // CSS Variables para whitelabel com formato RGB sem alpha
-        primary: 'rgb(var(--color-primary))',
-        'primary-foreground': 'rgb(var(--color-primary-foreground))',
-        secondary: 'rgb(var(--color-secondary))',
-        'secondary-foreground': 'rgb(var(--color-secondary-foreground))',
-        tertiary: 'rgb(var(--color-tertiary))',
-        'tertiary-foreground': 'rgb(var(--color-tertiary-foreground))',
-        background: 'rgb(var(--color-background))',
-        foreground: 'rgb(var(--color-foreground))',
-        muted: 'rgb(var(--color-muted))',
-        'muted-foreground': 'rgb(var(--color-muted-foreground))',
-        border: 'rgb(var(--color-border))',
-        input: 'rgb(var(--color-input))',
-        'input-foreground': 'rgb(var(--color-input-foreground))',
-        ring: 'rgb(var(--color-ring))',
+        // CSS Variables para whitelabel com formato hexadecimal
+        primary: 'var(--color-primary)',
+        'primary-foreground': 'var(--color-primary-foreground)',
+        secondary: 'var(--color-secondary)',
+        'secondary-foreground': 'var(--color-secondary-foreground)',
+        tertiary: 'var(--color-tertiary)',
+        'tertiary-foreground': 'var(--color-tertiary-foreground)',
+        background: 'var(--color-background)',
+        foreground: 'var(--color-foreground)',
+        muted: 'var(--color-muted)',
+        'muted-foreground': 'var(--color-muted-foreground)',
+        border: 'var(--color-border)',
+        input: 'var(--color-input)',
+        'input-foreground': 'var(--color-input-foreground)',
+        ring: 'var(--color-ring)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
